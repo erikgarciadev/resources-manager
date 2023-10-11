@@ -1,0 +1,7 @@
+.link {
+  @apply text-black items-center text-lg flex px-4 hover:bg-blue-300 hover:text-white;
+
+  &.active {
+    @apply bg-blue-500 text-white;
+  }
+}
