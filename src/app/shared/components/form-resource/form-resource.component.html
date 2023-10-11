@@ -1,0 +1,43 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  (keypress.enter)="submit()"
+  class="shadow-xl bg-white rounded-3xl p-5 sm:w-96"
+>
+  <h1 class="text-center text-2xl">AGREGAR RECURSO</h1>
+
+  <div class="my-6">
+    <ion-input
+      type="text"
+      placeholder="Descripción"
+      autocomplete="description"
+      label="Descripción"
+      label-placement="stacked"
+      fill="outline"
+      [formControl]="form.controls.description"
+    ></ion-input>
+  </div>
+  <div class="my-6">
+    <ion-input
+      type="text"
+      placeholder="Ej: https://www.google.com/"
+      label="Enlace"
+      label-placement="stacked"
+      fill="outline"
+      autocomplete="url"
+      [formControl]="form.controls.url"
+      [errorText]="getErrorTextUrl()"
+    ></ion-input>
+  </div>
+
+  <ion-button
+    class="rounded-sm"
+    mode="ios"
+    expand="full"
+    shape="round"
+    type="submit"
+    [disabled]="form.invalid"
+  >
+    Agregar
+  </ion-button>
+</form>

@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -22,6 +25,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
