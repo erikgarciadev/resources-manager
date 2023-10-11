@@ -1,13 +1,51 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+        "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .input {
+        box-shadow: theme("boxShadow.md");
+        width: theme("width.full");
+        border-radius: theme("borderRadius.xl");
+        padding: theme("padding.2");
+        margin-top: theme("margin.2");
+        border: 1px solid theme("colors.blue.500");
+    }
+
+    .input.error {
+        border: 1px solid theme("colors.red.500");
+    }
+
+    .button {
+        font-size: theme("fontSize.lg");
+        @apply flex justify-center items-center bg-blue-500 text-center w-full rounded-xl p-3 mt-8 text-white;
+    }
+
+    .button.disabled {
+        pointer-events: none;
+        opacity: 0.3;
+    }
+
+    .wrapper {
+        margin: 0 auto;
+        max-width: 1200px;
+        height: 100%;
+        @apply px-10 xl:px-5;
+    }
+
+    .link {
+        @apply text-black items-center text-lg flex px-4 hover:bg-blue-300 hover:text-white;
+    }
+
+    .link.active {
+        @apply bg-blue-500 text-white;
+    }
 }
