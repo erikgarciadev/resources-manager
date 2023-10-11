@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
 import {
   getFirestore,
   setDoc,
@@ -13,16 +13,30 @@ import {
   updateDoc,
   Timestamp,
 } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
-  firestore = inject(AngularFirestore);
+  private firestore = inject(AngularFirestore);
 
   getCollectionData(path: string, collectionQuery?: any) {
+    console.log(path, collectionQuery);
+    console.log(getFirestore());
     const ref = collection(getFirestore(), path);
+    console.log(ref);
+
+    console.log;
+
     return collectionData(query(ref, ...collectionQuery), { idField: 'id' });
+  }
+
+  getList(
+    path: any,
+    callbackRef?: QueryFn
+  ) {
+    return this.firestore.collection(path, callbackRef).get();
   }
 
   addDocument(path: string, data: any) {

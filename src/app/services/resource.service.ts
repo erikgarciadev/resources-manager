@@ -13,15 +13,34 @@ import {
   updateDoc,
   Timestamp,
 } from '@angular/fire/firestore';
+import { limit, orderBy, where } from 'firebase/firestore';
+import { COLLECTIONS } from '../utils/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ResourceService {
   firebaseSvc = inject(FirebaseService);
-  path = 'resources';
+  path = COLLECTIONS.RESOURCES;
 
-  get() {}
+  getResources(limit = 10) {
+    return this.firebaseSvc.getList(this.path, (ref) =>
+      ref
+        .limit(limit)
+        .where('deleted', '==', false)
+        .orderBy('created_at', 'desc')
+    );
+  }
+
+  getNextResources(limit = 10, lastInResponse: any) {
+    return this.firebaseSvc.getList(this.path, (ref) =>
+      ref
+        .where('deleted', '==', false)
+        .orderBy('created_at', 'desc')
+        .startAfter(lastInResponse)
+        .limit(limit)
+    );
+  }
 
   add(data: any) {
     return this.firebaseSvc.addDocument(this.path, {
