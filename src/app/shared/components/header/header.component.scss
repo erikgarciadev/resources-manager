@@ -1,5 +1,5 @@
 .link {
-  @apply text-black items-center text-lg flex px-2 sm:px-4 hover:bg-blue-300 hover:text-white;
+  @apply text-black items-center sm:text-lg flex px-2 sm:px-4 hover:bg-blue-300 hover:text-white;
 
   &.active {
     @apply bg-blue-500 text-white;
