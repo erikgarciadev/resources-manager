@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ViewChild } from '@angular/core';
 import { InfiniteScrollCustomEvent, Platform } from '@ionic/angular';
 import { ResourceService } from 'src/app/services/resource.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -12,11 +12,14 @@ export class ResourcesPage implements OnInit {
   platform = inject(Platform);
   utilsSvc = inject(UtilsService);
 
+  @ViewChild('popover') popover;
+
   loading = false;
   resources = [];
   lastInResponse: any;
   disable_next = false;
   limit = 10;
+  isOpen = false;
 
   ngOnInit() {}
 
@@ -148,5 +151,16 @@ export class ResourcesPage implements OnInit {
         });
       })
       .finally(() => loading.dismiss());
+  }
+
+  async copyLink(e, link) {
+    try {
+      await navigator.clipboard.writeText(link);
+      this.popover.event = e;
+      this.isOpen = true;
+      setTimeout(() => (this.isOpen = false), 1000);
+    } catch (error) {
+      console.log('error', error);
+    }
   }
 }
